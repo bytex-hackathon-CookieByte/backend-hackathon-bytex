@@ -1,5 +1,6 @@
 package ro.fiipractic.hackathon.jobyfier.service;
 
+import org.springframework.stereotype.Service;
 import ro.fiipractic.hackathon.jobyfier.exception.BadRequestException;
 import ro.fiipractic.hackathon.jobyfier.model.Company;
 import ro.fiipractic.hackathon.jobyfier.repository.CompanyRepository;
@@ -7,11 +8,13 @@ import ro.fiipractic.hackathon.jobyfier.repository.UserRepository;
 import ro.fiipractic.hackathon.jobyfier.util.IPasswordEncoder;
 
 import java.util.List;
+@Service
 
 public class CompanyService {
     private final CompanyRepository companyRepository;
     private final UserRepository userRepository;
     private final IPasswordEncoder passwordEncoder;
+
 
     public CompanyService(CompanyRepository companyRepository, UserRepository userRepository, IPasswordEncoder passwordEncoder) {
         this.companyRepository = companyRepository;
