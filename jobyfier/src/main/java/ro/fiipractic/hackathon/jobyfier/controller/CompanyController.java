@@ -9,6 +9,7 @@ import ro.fiipractic.hackathon.jobyfier.model.Company;
 import ro.fiipractic.hackathon.jobyfier.service.CompanyService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/companies")
@@ -31,8 +32,8 @@ public class CompanyController {
     }
 
     @GetMapping("/search")
-    public CompanyResponseDto getUserByUsername(@RequestParam String username){
-        Company company = companyService.getCompanyByUsername(username);
+    public CompanyResponseDto getUserByUsername(@RequestParam UUID id){
+        Company company = companyService.getCompanyById(id);
         return companyService.convertCompanyToDto(company);
     }
 }
