@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ro.info.iasi.fiipractic.twitter.exception.BadRequestException;
+import ro.fiipractic.hackathon.jobyfier.exception.BadRequestException;
 
 @RestControllerAdvice
 public class BadRequestAdvice {
