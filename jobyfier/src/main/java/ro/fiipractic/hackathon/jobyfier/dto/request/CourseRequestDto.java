@@ -53,4 +53,5 @@ public class CourseRequestDto {
     public void setCompanyId(UUID companyId) {
         this.companyId = companyId;
     }
+
 }

@@ -50,5 +50,11 @@ public class CourseResponseDto {
         this.content = content;
     }
 
+    public UUID getCompanyId() {
+        return companyId;
+    }
 
+    public void setCompanyId(UUID companyId) {
+        this.companyId = companyId;
+    }
 }

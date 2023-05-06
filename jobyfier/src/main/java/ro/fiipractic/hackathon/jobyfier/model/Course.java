@@ -73,4 +73,5 @@ public class Course {
     public void setCompany(Company company) {
         this.company = company;
     }
+
 }
