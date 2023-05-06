@@ -2,13 +2,12 @@ package ro.fiipractic.hackathon.jobyfier.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.fiipractic.hackathon.jobyfier.dto.request.CompanyRequestDto;
 import ro.fiipractic.hackathon.jobyfier.model.Company;
 import ro.fiipractic.hackathon.jobyfier.service.CompanyService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/companies")
@@ -30,5 +29,10 @@ public class CompanyController {
         );
         companyService.saveCompany(company);
         return ResponseEntity.ok("Company " + company.getUsername() + " has been registered successfully!");
+    }
+
+    @GetMapping()
+    public List<Company> getAllUsers(){
+        return companyService.getAllCompanies();
     }
 }
