@@ -3,8 +3,6 @@ package ro.fiipractic.hackathon.jobyfier.model;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.lang.reflect.Type;
-import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -23,20 +21,36 @@ public class Experience {
 
     private String position;
 
-    private Date startTime;
-    private Date endTime;
+    private long startTime;
+    private long endTime;
     private String description;
-    private Type type;
+    private String type;
 
     public Experience() {
     }
 
-    public Experience(String position, Date startTime, Date endTime, String description, Type type) {
+    public Experience(String position, long startTime, long endTime, String description, String type) {
         this.position = position;
         this.startTime = startTime;
         this.endTime = endTime;
         this.description = description;
         this.type = type;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getPosition() {
@@ -47,19 +61,19 @@ public class Experience {
         this.position = position;
     }
 
-    public Date getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 
@@ -71,11 +85,11 @@ public class Experience {
         this.description = description;
     }
 
-    public Type getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(String type) {
         this.type = type;
     }
 }
