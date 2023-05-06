@@ -31,4 +31,5 @@ public class CompanyController {
         companyService.saveCompany(company);
         return ResponseEntity.ok("Company " + company.getUsername() + " has been registered successfully!");
     }
+
 }
