@@ -33,6 +33,14 @@ public class Course {
         this.company = company;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }

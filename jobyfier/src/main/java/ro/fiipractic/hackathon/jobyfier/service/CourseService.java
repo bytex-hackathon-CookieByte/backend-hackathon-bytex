@@ -3,10 +3,13 @@ package ro.fiipractic.hackathon.jobyfier.service;
 
 import org.springframework.stereotype.Service;
 import ro.fiipractic.hackathon.jobyfier.dto.request.CourseRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.response.CourseResponseDto;
 import ro.fiipractic.hackathon.jobyfier.exception.BadRequestException;
 import ro.fiipractic.hackathon.jobyfier.exception.NotFoundException;
 import ro.fiipractic.hackathon.jobyfier.model.Course;
 import ro.fiipractic.hackathon.jobyfier.repository.CourseRepository;
+
+import java.util.List;
 
 @Service
 public class CourseService  {
@@ -25,8 +28,16 @@ public class CourseService  {
         return new Course(courseRequestDto.getTitle(),
                 courseRequestDto.getPrice(),
                 courseRequestDto.getContent(),
-                courseRequestDto.getCompany()
+                null
                 );
+    }
+    public CourseResponseDto convertCourseToDto(Course course) {
+        return new CourseResponseDto(
+                course.getId(),
+                course.getTitle(),
+                course.getPrice(),
+                course.getContent(),
+                course.getCompany().getId());
     }
     public Course getByTitle(String title) {
         Course course = courseRepository.findByTitle(title);
@@ -40,6 +51,9 @@ public class CourseService  {
 
     public void save(Course course) {
         courseRepository.save(course);
+    }
+    public List<Course> findAll() {
+        return courseRepository.findAll();
     }
 }
 

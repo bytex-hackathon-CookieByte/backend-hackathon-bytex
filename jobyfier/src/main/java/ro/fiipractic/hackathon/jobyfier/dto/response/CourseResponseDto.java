@@ -1,7 +1,5 @@
 package ro.fiipractic.hackathon.jobyfier.dto.response;
 
-import ro.fiipractic.hackathon.jobyfier.model.Course;
-
 import java.util.UUID;
 
 public class CourseResponseDto {
@@ -9,14 +7,15 @@ public class CourseResponseDto {
     private String title;
     private int price;
     private String content;
-    private Course course;
+    private UUID companyId;
 
-    public CourseResponseDto(UUID id, String title, int price, String content, Course course) {
+
+    public CourseResponseDto(UUID id, String title, int price, String content, UUID companyId) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.content = content;
-        this.course = course;
+        this.companyId = companyId;
     }
 
     public UUID getId() {
@@ -51,11 +50,5 @@ public class CourseResponseDto {
         this.content = content;
     }
 
-    public Course getCourse() {
-        return course;
-    }
 
-    public void setCourse(Course course) {
-        this.course = course;
-    }
 }
