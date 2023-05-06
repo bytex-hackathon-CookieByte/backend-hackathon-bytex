@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.fiipractic.hackathon.jobyfier.dto.request.ChallengeRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.request.StageRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.response.ChallengeResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.StageResponseDto;
 import ro.fiipractic.hackathon.jobyfier.model.Challenge;
 import ro.fiipractic.hackathon.jobyfier.model.Stage;
@@ -36,10 +37,9 @@ public class ChallengeController {
     }
 
     @GetMapping("/all")
-    public List<Challenge> getChallenges() {
+    public List<ChallengeResponseDto> getChallenges() {
         List<Challenge> challenges = challengeService.getChallenges();
-        return challenges;
-//        return challengeService.convertChallengeToDto(challenges);
+        return challengeService.convertChallengeToDto(challenges);
     }
 
     @GetMapping()

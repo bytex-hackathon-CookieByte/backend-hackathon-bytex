@@ -62,4 +62,32 @@ public class ChallengeResponseDto {
     public void setCompanyId(UUID companyId) {
         this.companyId = companyId;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getAdPrice() {
+        return adPrice;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public UUID getCompanyId() {
+        return companyId;
+    }
 }
