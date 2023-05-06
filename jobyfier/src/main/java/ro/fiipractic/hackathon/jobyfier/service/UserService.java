@@ -1,5 +1,6 @@
 package ro.fiipractic.hackathon.jobyfier.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ro.fiipractic.hackathon.jobyfier.dto.request.ExperienceRequestDto;
@@ -127,5 +128,12 @@ public class UserService {
             throw new BadRequestException("Invalid password!");
         }
         return ResponseEntity.ok(convertUserToDto(user));
+    }
+
+
+
+    @Transactional
+    public void updateTokens(User user) {
+        userRepository.updateTokens(user.getId(), user.getTokens());
     }
 }

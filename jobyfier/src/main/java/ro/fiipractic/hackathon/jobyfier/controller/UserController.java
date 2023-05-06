@@ -85,4 +85,21 @@ public class UserController {
         scoreService.save(user,challenge,scoreValue);
         return ResponseEntity.ok("Score added successfully");
     }
+
+    @PostMapping("/tokens/add")
+    public ResponseEntity<String> addToken(@RequestParam String username, @RequestParam int tokens){
+        User user = userService.getUserByUsername(username);
+        user.setTokens(user.getTokens() + tokens);
+        userService.updateTokens(user);
+        return ResponseEntity.ok("Tokens added successfully");
+    }
+
+    @PostMapping("/tokens/substract")
+    public ResponseEntity<String> subtractToken(@RequestParam String username, @RequestParam int tokens){
+        User user = userService.getUserByUsername(username);
+        user.setTokens(user.getTokens() - tokens);
+        userService.updateTokens(user);
+        return ResponseEntity.ok("Tokens subtracted successfully");
+    }
+
 }
