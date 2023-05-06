@@ -27,7 +27,7 @@ public class CourseController {
         course.setCompany(companyService.getCompanyById(courseRequestDto.getCompanyId()));
         System.out.println(course.getId());
         courseService.save(course);
-        return ResponseEntity.ok("Course created successfully");
+        return ResponseEntity.ok(course.getId().toString());
     }
     @GetMapping("/all")
     public List<Course> getAllCourses(){

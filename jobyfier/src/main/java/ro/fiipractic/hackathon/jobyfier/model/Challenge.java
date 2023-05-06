@@ -3,6 +3,7 @@ package ro.fiipractic.hackathon.jobyfier.model;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -30,16 +31,20 @@ public class Challenge {
                     foreignKeyDefinition = "FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE"))
     private Company company;
 
+    @OneToMany(mappedBy = "challenge", cascade = CascadeType.ALL,  orphanRemoval = true)
+    private List<Stage> stages;
+
     public Challenge() {
     }
 
-    public Challenge(String title, String description, int price, int adPrice, long startTime, Company company) {
+    public Challenge(String title, String description, int price, int adPrice, long startTime, Company company, List<Stage> stages) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.adPrice = adPrice;
         this.startTime = startTime;
         this.company = company;
+        this.stages = stages;
     }
 
     public UUID getId() {
@@ -97,4 +102,10 @@ public class Challenge {
     public void setCompany(Company company) {
         this.company = company;
     }
+
+
+    public List<Stage> getStages() {
+        return stages;
+    }
+
 }
