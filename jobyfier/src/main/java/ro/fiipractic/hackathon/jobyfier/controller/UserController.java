@@ -68,10 +68,17 @@ public class UserController {
 
         return userService.convertExperiencesToDto(experiences);
     }
-    @PostMapping("/addCourse")
-    public void addCourse(@RequestBody UserCourseRequestDto userCourseRequestDto){
+    @PostMapping("/courses")
+    public ResponseEntity<String> addCourse(@RequestBody UserCourseRequestDto userCourseRequestDto){
         User user = userService.getById(userCourseRequestDto.getUserId());
         Course course = courseService.getById(userCourseRequestDto.getCourseId());
         userCourseService.saveUserCourse(user,course);
+        return ResponseEntity.ok("Course added successfully");
+    }
+    @PostMapping("/scores")
+    public ResponseEntity<String> addScore(@RequestBody ScoreRequestDto scoreRequestDto){
+
+
+        return ResponseEntity.ok("Score added successfully");
     }
 }
