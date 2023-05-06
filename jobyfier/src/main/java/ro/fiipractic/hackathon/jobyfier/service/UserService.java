@@ -6,15 +6,21 @@ import ro.fiipractic.hackathon.jobyfier.exception.BadRequestException;
 import ro.fiipractic.hackathon.jobyfier.model.User;
 import ro.fiipractic.hackathon.jobyfier.repository.CompanyRepository;
 import ro.fiipractic.hackathon.jobyfier.repository.UserRepository;
+import ro.fiipractic.hackathon.jobyfier.util.IPasswordEncoder;
+
+import java.util.List;
 
 @Service
 public class UserService {
     private UserRepository userRepository;
     private CompanyRepository companyRepository;
 
-    public UserService(UserRepository userRepository, CompanyRepository companyRepository) {
+    private IPasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, CompanyRepository companyRepository, IPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.companyRepository = companyRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -33,6 +39,11 @@ public class UserService {
             throw new BadRequestException("Username taken!");
         if(companyRepository.findByUsername(user.getUsername())!=null)
             throw new BadRequestException("Username taken!");
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }
