@@ -10,6 +10,7 @@ import ro.fiipractic.hackathon.jobyfier.model.Course;
 import ro.fiipractic.hackathon.jobyfier.repository.CourseRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CourseService  {
@@ -18,11 +19,11 @@ public class CourseService  {
     public CourseService(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
-    public Course saveCourse(Course course){
+    public void saveCourse(Course course){
         if(courseRepository.findByTitle(course.getTitle())!=null){
             throw new BadRequestException("Course with title " + course.getTitle() + " already exists!");
         }
-        return courseRepository.save(course);
+         courseRepository.save(course);
     }
     public Course convertDtoToCourse(CourseRequestDto courseRequestDto) {
         return new Course(courseRequestDto.getTitle(),
@@ -30,6 +31,12 @@ public class CourseService  {
                 courseRequestDto.getContent(),
                 null
                 );
+    }
+    public Course getById(UUID id){
+        if(courseRepository.findById(id).isEmpty()){
+            throw new BadRequestException("The course with id " + id + " doesn't exist");
+        }
+        return courseRepository.findById(id).orElse(null);
     }
     public CourseResponseDto convertCourseToDto(Course course) {
         return new CourseResponseDto(

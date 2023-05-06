@@ -4,11 +4,15 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.fiipractic.hackathon.jobyfier.dto.request.ExperienceRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.request.UserCourseRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.request.UserRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.ExperienceResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.UserResponseDto;
+import ro.fiipractic.hackathon.jobyfier.model.Course;
 import ro.fiipractic.hackathon.jobyfier.model.Experience;
 import ro.fiipractic.hackathon.jobyfier.model.User;
+import ro.fiipractic.hackathon.jobyfier.service.CourseService;
+import ro.fiipractic.hackathon.jobyfier.service.UserCourseService;
 import ro.fiipractic.hackathon.jobyfier.service.UserService;
 
 import java.util.List;
@@ -18,9 +22,13 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserCourseService userCourseService;
+    private final CourseService courseService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserCourseService userCourseService, CourseService courseService) {
         this.userService = userService;
+        this.userCourseService = userCourseService;
+        this.courseService = courseService;
     }
 
     @PostMapping("/register")
@@ -59,5 +67,11 @@ public class UserController {
         List<Experience> experiences = userService.findAllExperiences(user);
 
         return userService.convertExperiencesToDto(experiences);
+    }
+    @PostMapping("/addCourse")
+    public void addCourse(@RequestBody UserCourseRequestDto userCourseRequestDto){
+        User user = userService.getById(userCourseRequestDto.getUserId());
+        Course course = courseService.getById(userCourseRequestDto.getCourseId());
+        userCourseService.saveUserCourse(user,course);
     }
 }
