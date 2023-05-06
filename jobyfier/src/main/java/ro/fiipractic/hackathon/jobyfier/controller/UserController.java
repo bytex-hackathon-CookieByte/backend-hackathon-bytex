@@ -4,12 +4,14 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ro.fiipractic.hackathon.jobyfier.dto.UserRequestDto;
 import ro.fiipractic.hackathon.jobyfier.model.User;
 import ro.fiipractic.hackathon.jobyfier.service.UserService;
 
 @RestController
-@RestController"/users"
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
