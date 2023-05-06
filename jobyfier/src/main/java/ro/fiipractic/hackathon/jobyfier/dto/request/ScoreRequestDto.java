@@ -9,10 +9,13 @@ public class ScoreRequestDto {
     private UUID userId;
     @NotNull
     private UUID challengeId;
+    @NotNull
+    private int scoreValue;
 
-    public ScoreRequestDto(UUID userId, UUID challengeId) {
+    public ScoreRequestDto(UUID userId, UUID challengeId, int scoreValue) {
         this.userId = userId;
         this.challengeId = challengeId;
+        this.scoreValue = scoreValue;
     }
 
     public UUID getUserId() {
@@ -29,5 +32,13 @@ public class ScoreRequestDto {
 
     public void setChallengeId(UUID challengeId) {
         this.challengeId = challengeId;
+    }
+
+    public int getScoreValue() {
+        return scoreValue;
+    }
+
+    public void setScoreValue(int scoreValue) {
+        this.scoreValue = scoreValue;
     }
 }

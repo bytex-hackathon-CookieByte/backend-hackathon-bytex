@@ -4,16 +4,16 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.fiipractic.hackathon.jobyfier.dto.request.ExperienceRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.request.ScoreRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.request.UserCourseRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.request.UserRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.ExperienceResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.UserResponseDto;
+import ro.fiipractic.hackathon.jobyfier.model.Challenge;
 import ro.fiipractic.hackathon.jobyfier.model.Course;
 import ro.fiipractic.hackathon.jobyfier.model.Experience;
 import ro.fiipractic.hackathon.jobyfier.model.User;
-import ro.fiipractic.hackathon.jobyfier.service.CourseService;
-import ro.fiipractic.hackathon.jobyfier.service.UserCourseService;
-import ro.fiipractic.hackathon.jobyfier.service.UserService;
+import ro.fiipractic.hackathon.jobyfier.service.*;
 
 import java.util.List;
 
@@ -24,11 +24,15 @@ public class UserController {
     private final UserService userService;
     private final UserCourseService userCourseService;
     private final CourseService courseService;
+    private final ChallengeService challengeService;
+    private final ScoreService scoreService;
 
-    public UserController(UserService userService, UserCourseService userCourseService, CourseService courseService) {
+    public UserController(UserService userService, UserCourseService userCourseService, CourseService courseService, ChallengeService challengeService, ScoreService scoreService) {
         this.userService = userService;
         this.userCourseService = userCourseService;
         this.courseService = courseService;
+        this.challengeService = challengeService;
+        this.scoreService = scoreService;
     }
 
     @PostMapping("/register")
@@ -75,8 +79,10 @@ public class UserController {
     }
     @PostMapping("/scores")
     public ResponseEntity<String> addScore(@RequestBody ScoreRequestDto scoreRequestDto){
-
-
+        User user = userService.getById(scoreRequestDto.getUserId());
+        Challenge challenge = challengeService.getChallengeById(scoreRequestDto.getChallengeId());
+        int scoreValue = scoreRequestDto.getScoreValue();
+        scoreService.save(user,challenge,scoreValue);
         return ResponseEntity.ok("Score added successfully");
     }
 }

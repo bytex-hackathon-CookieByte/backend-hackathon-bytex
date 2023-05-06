@@ -41,6 +41,7 @@ public class ChallengeController {
         return challengeService.getChallenges();
     }
 
+
     @PostMapping("/stages")
     public ResponseEntity<String> createChallengeStages(@Valid @RequestBody StageRequestDto stageRequestDto) {
         Challenge challenge = challengeService.getChallengeById(stageRequestDto.getChallengeId());
