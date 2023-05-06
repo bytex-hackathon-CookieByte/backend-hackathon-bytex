@@ -6,7 +6,7 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.UUID;
 
 @Entity
-@Table(name = "scores")
+@Table(name = "stages")
 public class Stage {
 
     @Id
@@ -21,9 +21,9 @@ public class Stage {
     private long duration;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stage_id", referencedColumnName = "id",
+    @JoinColumn(name = "challenge_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_stage_challenge",
-                    foreignKeyDefinition = "FOREIGN KEY (scores_id) REFERENCES challenges(id) ON DELETE CASCADE"))
+                    foreignKeyDefinition = "FOREIGN KEY (challenge_id) REFERENCES challenges(id) ON DELETE CASCADE"))
     private Challenge challenge;
 
     public Stage() {
