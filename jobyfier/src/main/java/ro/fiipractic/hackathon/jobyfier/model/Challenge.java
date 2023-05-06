@@ -27,7 +27,7 @@ public class Challenge {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_challenge_company",
-                    foreignKeyDefinition = "FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE"))
+                    foreignKeyDefinition = "FOREIGN KEY (companies_id) REFERENCES companies(id) ON DELETE CASCADE"))
     private Company company;
 
     public Challenge() {

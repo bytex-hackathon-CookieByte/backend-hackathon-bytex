@@ -15,12 +15,12 @@ public class Score {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_score_user",
-                    foreignKeyDefinition = "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"))
+                    foreignKeyDefinition = "FOREIGN KEY (users_id) REFERENCES users(id) ON DELETE CASCADE"))
     private User user;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "challenge_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_score_challenge",
-                    foreignKeyDefinition = "FOREIGN KEY (challenge_id) REFERENCES challenges(id) ON DELETE CASCADE"))
+                    foreignKeyDefinition = "FOREIGN KEY (challenges_id) REFERENCES challenges(id) ON DELETE CASCADE"))
     private Challenge challenge;
     private int scoreValue;
 
