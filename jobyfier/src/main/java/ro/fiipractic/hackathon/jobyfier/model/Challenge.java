@@ -6,6 +6,7 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.UUID;
 
 @Entity
+@Table(name = "challenges")
 
 public class Challenge {
     @Id
