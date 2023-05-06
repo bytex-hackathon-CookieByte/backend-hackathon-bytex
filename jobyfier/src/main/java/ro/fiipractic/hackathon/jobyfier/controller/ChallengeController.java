@@ -10,6 +10,7 @@ import ro.fiipractic.hackathon.jobyfier.dto.request.StageRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.ChallengeResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.StageResponseDto;
 import ro.fiipractic.hackathon.jobyfier.model.Challenge;
+import ro.fiipractic.hackathon.jobyfier.model.Course;
 import ro.fiipractic.hackathon.jobyfier.model.Stage;
 import ro.fiipractic.hackathon.jobyfier.model.question.FixedQuestion;
 import ro.fiipractic.hackathon.jobyfier.model.question.OpenQuestion;
@@ -53,6 +54,12 @@ public class ChallengeController {
     @GetMapping("/search")
     public Challenge getChallengeById(@RequestParam UUID id) {
         return challengeService.getChallengeById(id);
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteChallenge(@Valid @RequestParam UUID challengeId){
+        Challenge challenge = challengeService.getChallengeById(challengeId);
+        challengeService.deleteChallenge(challenge);
+        return ResponseEntity.ok("'" + challenge.getTitle() + "' successfully deleted!");
     }
 
     @PostMapping("/stages")

@@ -111,4 +111,7 @@ public class ChallengeService {
         return stageRepository.findById(stageId).orElse(null);
     }
 
+    public void deleteChallenge(Challenge challenge) {
+        challengeRepository.delete(challenge);
+    }
 }
