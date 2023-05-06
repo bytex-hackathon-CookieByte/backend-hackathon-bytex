@@ -10,6 +10,7 @@ import ro.fiipractic.hackathon.jobyfier.service.CompanyService;
 import ro.fiipractic.hackathon.jobyfier.service.CourseService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/courses")
@@ -34,5 +35,12 @@ public class CourseController {
         List<Course> courses = courseService.findAll();
         return courseService.convertCourseToDto(courses);
     }
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteCourse(@Valid @RequestParam UUID courseId){
+        Course course = courseService.getById(courseId);
+        courseService.deleteCourse(course);
+        return ResponseEntity.ok("'" + course.getTitle() + "' successfully deleted!");
+    }
+
 
 }
