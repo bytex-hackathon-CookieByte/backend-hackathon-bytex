@@ -1,9 +1,6 @@
 package ro.fiipractic.hackathon.jobyfier.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
@@ -15,6 +12,7 @@ public class User {
     @GeneratedValue
     @UuidGenerator
     private UUID id;
+    @Column(unique=true)
     private String username;
     private String password;
     private String firstname;
