@@ -25,14 +25,11 @@ public class Challenge {
 
     private long startTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_challenge_company",
                     foreignKeyDefinition = "FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE"))
     private Company company;
-
-    @OneToMany(mappedBy = "challenge", cascade = CascadeType.ALL,  orphanRemoval = true)
-    private List<Stage> stages;
 
     public Challenge() {
     }
@@ -44,7 +41,6 @@ public class Challenge {
         this.adPrice = adPrice;
         this.startTime = startTime;
         this.company = company;
-        this.stages = stages;
     }
 
     public UUID getId() {
@@ -103,9 +99,5 @@ public class Challenge {
         this.company = company;
     }
 
-
-    public List<Stage> getStages() {
-        return stages;
-    }
 
 }

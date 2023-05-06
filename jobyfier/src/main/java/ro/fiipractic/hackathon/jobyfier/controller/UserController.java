@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.fiipractic.hackathon.jobyfier.dto.request.ExperienceRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.request.ScoreRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.request.UserCourseRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.request.UserRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.ExperienceResponseDto;

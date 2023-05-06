@@ -9,6 +9,7 @@ import ro.fiipractic.hackathon.jobyfier.exception.BadRequestException;
 import ro.fiipractic.hackathon.jobyfier.model.Challenge;
 import ro.fiipractic.hackathon.jobyfier.model.Stage;
 import ro.fiipractic.hackathon.jobyfier.repository.ChallengeRepository;
+import ro.fiipractic.hackathon.jobyfier.repository.StageRepository;
 
 import java.time.Instant;
 import java.util.List;
@@ -18,10 +19,12 @@ import java.util.UUID;
 public class ChallengeService {
 
     final private ChallengeRepository challengeRepository;
+    final private StageRepository stageRepository;
 
 
-    public ChallengeService(ChallengeRepository challengeRepository) {
+    public ChallengeService(ChallengeRepository challengeRepository, StageRepository stageRepository) {
         this.challengeRepository = challengeRepository;
+        this.stageRepository = stageRepository;
     }
 
 
@@ -58,9 +61,6 @@ public class ChallengeService {
         );
     }
 
-    public void addStageToChallenge(Challenge challenge, Stage stage) {
-        challenge.getStages().add(stage);
-    }
 
     public List<StageResponseDto> convertStageToDto(List<Stage> stages) {
         return stages.stream().
@@ -73,17 +73,30 @@ public class ChallengeService {
                 )).toList();
     }
 
-    public List<ChallengeResponseDto> getChallenges() {
-        return challengeRepository.findAll().stream()
-                .map(challenge -> new ChallengeResponseDto(
+    public List<Challenge> getChallenges() {
+        return challengeRepository.findAll();
+    }
+
+    public List<ChallengeResponseDto> convertChallengeToDto(List<Challenge> challenges) {
+        return challenges.stream().
+                map(challenge -> new ChallengeResponseDto(
                         challenge.getId(),
                         challenge.getTitle(),
                         challenge.getDescription(),
                         challenge.getPrice(),
                         challenge.getAdPrice(),
                         challenge.getStartTime(),
-                        challenge.getCompany().getId(),
-                        convertStageToDto(challenge.getStages())
+                        challenge.getCompany().getId()
                 )).toList();
+    }
+
+
+    public List<Stage> getStagesByChallengeId(UUID challengeId) {
+        return stageRepository.findAllByChallengeId(challengeId);
+    }
+
+    public void addStageToChallenge(Challenge challenge, Stage stage) {
+        stage.setChallenge(challenge);
+        stageRepository.save(stage);
     }
 }

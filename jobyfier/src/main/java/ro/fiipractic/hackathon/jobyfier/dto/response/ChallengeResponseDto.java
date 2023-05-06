@@ -1,6 +1,5 @@
 package ro.fiipractic.hackathon.jobyfier.dto.response;
 
-import java.util.List;
 import java.util.UUID;
 
 public class ChallengeResponseDto {
@@ -19,7 +18,6 @@ public class ChallengeResponseDto {
 
     private UUID companyId;
 
-    private List<StageResponseDto> stages;
 
     public ChallengeResponseDto(UUID id,
                                 String title,
@@ -27,8 +25,7 @@ public class ChallengeResponseDto {
                                 int price,
                                 int adPrice,
                                 long startTime,
-                                UUID companyId,
-                                List<StageResponseDto> stages) {
+                                UUID companyId) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -36,7 +33,6 @@ public class ChallengeResponseDto {
         this.adPrice = adPrice;
         this.startTime = startTime;
         this.companyId = companyId;
-        this.stages = stages;
     }
 
     public void setId(UUID id) {
@@ -65,9 +61,5 @@ public class ChallengeResponseDto {
 
     public void setCompanyId(UUID companyId) {
         this.companyId = companyId;
-    }
-
-    public void setStages(List<StageResponseDto> stages) {
-        this.stages = stages;
     }
 }

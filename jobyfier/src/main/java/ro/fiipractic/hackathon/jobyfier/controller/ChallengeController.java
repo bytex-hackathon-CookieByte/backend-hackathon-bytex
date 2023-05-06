@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.fiipractic.hackathon.jobyfier.dto.request.ChallengeRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.request.StageRequestDto;
-import ro.fiipractic.hackathon.jobyfier.dto.response.ChallengeResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.StageResponseDto;
 import ro.fiipractic.hackathon.jobyfier.model.Challenge;
 import ro.fiipractic.hackathon.jobyfier.model.Stage;
@@ -36,9 +35,16 @@ public class ChallengeController {
         return ResponseEntity.ok(challenge.getId().toString());
     }
 
+    @GetMapping("/all")
+    public List<Challenge> getChallenges() {
+        List<Challenge> challenges = challengeService.getChallenges();
+        return challenges;
+//        return challengeService.convertChallengeToDto(challenges);
+    }
+
     @GetMapping()
-    public List<ChallengeResponseDto> getChallenges() {
-        return challengeService.getChallenges();
+    public Challenge getChallengeById(@RequestParam UUID id) {
+        return challengeService.getChallengeById(id);
     }
 
     @PostMapping("/stages")
@@ -53,7 +59,7 @@ public class ChallengeController {
     @GetMapping("/stages")
     public List<StageResponseDto> getChallengeStages(@RequestParam UUID challengeId) {
         Challenge challenge = challengeService.getChallengeById(challengeId);
-        List<Stage> stages = challenge.getStages();
+        List<Stage> stages = challengeService.getStagesByChallengeId(challengeId);
         return challengeService.convertStageToDto(stages);
     }
 }
