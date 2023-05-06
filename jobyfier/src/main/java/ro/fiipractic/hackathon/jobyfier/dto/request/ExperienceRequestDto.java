@@ -20,7 +20,12 @@ public class ExperienceRequestDto {
     @NotBlank
     private String type;
 
-    public ExperienceRequestDto(String username, String position, String startDate, String endDate, String description, String type) {
+    public ExperienceRequestDto(String username,
+                                String position,
+                                String startDate,
+                                String endDate,
+                                String description,
+                                String type) {
         this.username = username;
         this.position = position;
         this.startDate = startDate;
