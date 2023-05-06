@@ -19,12 +19,12 @@ public class Course {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_course_user",
-                    foreignKeyDefinition = "FOREIGN KEY (users_id) REFERENCES users(id) ON DELETE CASCADE"))
+                    foreignKeyDefinition = "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"))
     private User user;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_course_company",
-                    foreignKeyDefinition = "FOREIGN KEY (companies_id) REFERENCES companies(id) ON DELETE CASCADE"))
+                    foreignKeyDefinition = "FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE"))
     private Company company;
 
     public Course() {

@@ -2,8 +2,6 @@ package ro.fiipractic.hackathon.jobyfier.model;
 
 import jakarta.persistence.Entity;
 
-import java.util.UUID;
-
 @Entity
 public class OpenQuestion extends Question {
     private String answer;
@@ -11,8 +9,8 @@ public class OpenQuestion extends Question {
     public OpenQuestion() {
     }
 
-    public OpenQuestion(UUID id, String text, int points, String answer) {
-        super(id, text, points);
+    public OpenQuestion(String text, int points, Stage stage, String answer) {
+        super(text, points, stage);
         this.answer = answer;
     }
 

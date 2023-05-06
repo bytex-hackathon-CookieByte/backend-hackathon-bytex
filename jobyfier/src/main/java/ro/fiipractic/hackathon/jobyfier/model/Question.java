@@ -1,9 +1,6 @@
 package ro.fiipractic.hackathon.jobyfier.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
@@ -18,13 +15,19 @@ public class Question {
     private String text;
     private int points;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stage_id", referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "fk_question_stage",
+                    foreignKeyDefinition = "FOREIGN KEY (stage_id) REFERENCES stages(id) ON DELETE CASCADE"))
+    private Stage stage;
+
     public Question() {
     }
 
-    public Question(UUID id, String text, int points) {
-        this.id = id;
+    public Question(String text, int points, Stage stage) {
         this.text = text;
         this.points = points;
+        this.stage = stage;
     }
 
     public UUID getId() {
@@ -49,5 +52,13 @@ public class Question {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }
