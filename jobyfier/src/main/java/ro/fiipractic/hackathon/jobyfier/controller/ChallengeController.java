@@ -36,19 +36,15 @@ public class ChallengeController {
         return ResponseEntity.ok(challenge.getId().toString());
     }
 
-    @GetMapping("/all")
+    @GetMapping()
     public List<ChallengeResponseDto> getChallenges() {
         List<Challenge> challenges = challengeService.getChallenges();
         return challengeService.convertChallengeToDto(challenges);
     }
 
-    @GetMapping()
+    @GetMapping("/search")
     public Challenge getChallengeById(@RequestParam UUID id) {
         return challengeService.getChallengeById(id);
-    }
-    @GetMapping("/title")
-    public Challenge getChallengeById(@RequestParam String title) {
-        return challengeService.getChallengeByTitle(title);
     }
 
     @PostMapping("/stages")

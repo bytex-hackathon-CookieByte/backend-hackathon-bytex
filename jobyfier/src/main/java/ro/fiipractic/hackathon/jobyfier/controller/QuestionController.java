@@ -23,14 +23,14 @@ public class QuestionController {
         this.questionService = questionService;
         this.challengeService = challengeService;
     }
-    @PostMapping("/addOpen")
+    @PostMapping("/open")
     public ResponseEntity<String> addQuestionOpen(@Valid @RequestBody QuestionOpenRequestDto questionOpenRequestDto){
         OpenQuestion openQuestion = questionService.convertDtoToQuestionOpen(questionOpenRequestDto);
         openQuestion.setStage(challengeService.findStageById(questionOpenRequestDto.getStageId()));
         questionService.save(openQuestion);
         return ResponseEntity.ok(openQuestion.getId().toString());
     }
-    @PostMapping("/addFixed")
+    @PostMapping("/fixed")
     public ResponseEntity<String> addQuestionFixed(@Valid @RequestBody QuestionFixedRequestDto questionFixedRequestDto){
         FixedQuestion fixedQuestion = questionService.convertDtoToQuestionFixed(questionFixedRequestDto);
         fixedQuestion.setStage(challengeService.findStageById(questionFixedRequestDto.getStageId()));

@@ -19,18 +19,18 @@ public class CompanyController {
     public CompanyController(CompanyService companyService) {
         this.companyService = companyService;
     }
-    @PostMapping("/register")
+    @PostMapping()
     public ResponseEntity<String> registerCompany(@Valid @RequestBody CompanyRequestDto companyRequestDto){
         Company company = companyService.convertDtoToCompany(companyRequestDto);
         companyService.saveCompany(company);
-        return ResponseEntity.ok("Company " + company.getUsername() + " has been registered successfully!");
+        return ResponseEntity.ok(company.getId().toString());
     }
-    @GetMapping("/all")
+    @GetMapping()
     public List<Company> getAllCompanies(){
         return companyService.getAllCompanies();
     }
 
-    @GetMapping()
+    @GetMapping("/search")
     public CompanyResponseDto getUserByUsername(@RequestParam String username){
         Company company = companyService.getCompanyByUsername(username);
         return companyService.convertCompanyToDto(company);

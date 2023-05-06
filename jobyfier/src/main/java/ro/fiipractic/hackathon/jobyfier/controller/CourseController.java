@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.fiipractic.hackathon.jobyfier.dto.request.CourseRequestDto;
-import ro.fiipractic.hackathon.jobyfier.dto.response.CourseResponseDto;
 import ro.fiipractic.hackathon.jobyfier.model.Course;
 import ro.fiipractic.hackathon.jobyfier.service.CompanyService;
 import ro.fiipractic.hackathon.jobyfier.service.CourseService;
@@ -21,7 +20,7 @@ public class CourseController {
         this.courseService = courseService;
         this.companyService = companyService;
     }
-    @PostMapping("/register")
+    @PostMapping()
     public ResponseEntity<String> registerCourse(@Valid @RequestBody CourseRequestDto courseRequestDto){
         Course course = courseService.convertDtoToCourse(courseRequestDto);
         course.setCompany(companyService.getCompanyById(courseRequestDto.getCompanyId()));
@@ -29,14 +28,9 @@ public class CourseController {
         courseService.save(course);
         return ResponseEntity.ok(course.getId().toString());
     }
-    @GetMapping("/all")
+    @GetMapping()
     public List<Course> getAllCourses(){
         return courseService.findAll();
-    }
-    @GetMapping()
-    public CourseResponseDto getUserByTitle(@RequestParam String title){
-        Course course = courseService.getByTitle(title);
-        return courseService.convertCourseToDto(course);
     }
 
 }

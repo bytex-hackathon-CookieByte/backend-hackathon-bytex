@@ -17,7 +17,7 @@ public class Course {
     private int price;
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_course_company",
                     foreignKeyDefinition = "FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE"))

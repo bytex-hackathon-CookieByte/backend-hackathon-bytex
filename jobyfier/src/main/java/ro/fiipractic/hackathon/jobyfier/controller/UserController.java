@@ -35,19 +35,19 @@ public class UserController {
         this.scoreService = scoreService;
     }
 
-    @PostMapping("/register")
+    @PostMapping()
     public ResponseEntity<String> registerUser(@Valid @RequestBody UserRequestDto userRequestDto){
         User user = userService.convertDtoToUser(userRequestDto);
         userService.save(user);
         return ResponseEntity.ok(user.getId().toString());
     }
 
-    @GetMapping("/all")
+    @GetMapping()
     public List<User> getAllUsers(){
         return userService.findAll();
     }
 
-    @GetMapping()
+    @GetMapping("/search")
     public UserResponseDto getUserByUsername(@RequestParam String username){
         User user = userService.getUserByUsername(username);
         return userService.convertUserToDto(user);
