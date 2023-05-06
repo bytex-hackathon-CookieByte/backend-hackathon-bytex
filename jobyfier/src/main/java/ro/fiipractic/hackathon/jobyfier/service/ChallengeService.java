@@ -6,6 +6,7 @@ import ro.fiipractic.hackathon.jobyfier.dto.request.StageRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.ChallengeResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.StageResponseDto;
 import ro.fiipractic.hackathon.jobyfier.exception.BadRequestException;
+import ro.fiipractic.hackathon.jobyfier.exception.NotFoundException;
 import ro.fiipractic.hackathon.jobyfier.model.Challenge;
 import ro.fiipractic.hackathon.jobyfier.model.Stage;
 import ro.fiipractic.hackathon.jobyfier.repository.ChallengeRepository;
@@ -98,6 +99,16 @@ public class ChallengeService {
     public void addStageToChallenge(Challenge challenge, Stage stage) {
         stage.setChallenge(challenge);
         stageRepository.save(stage);
+    }
+    public Challenge getChallengeByTitle(String title) {
+        return challengeRepository.getByTitle(title);
+    }
+
+    public Stage findStageById(UUID stageId) {
+        if(stageRepository.findById(stageId)==null){
+            throw new NotFoundException("The stage with id " + stageId + " doesn't exist");
+        }
+        return stageRepository.findById(stageId).orElse(null);
     }
 
 }
