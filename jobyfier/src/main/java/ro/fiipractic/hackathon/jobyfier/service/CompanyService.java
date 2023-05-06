@@ -6,6 +6,8 @@ import ro.fiipractic.hackathon.jobyfier.repository.CompanyRepository;
 import ro.fiipractic.hackathon.jobyfier.repository.UserRepository;
 import ro.fiipractic.hackathon.jobyfier.util.IPasswordEncoder;
 
+import java.util.List;
+
 public class CompanyService {
     private final CompanyRepository companyRepository;
     private final UserRepository userRepository;
@@ -31,5 +33,13 @@ public class CompanyService {
         if(company == null)
             throw new BadRequestException("User with username '" + username + "' was not found.");
         return company;
+    }
+    public void deleteCompany(Company company, String password) {
+        if(!passwordEncoder.matches(password, company.getPassword()))
+            throw new BadRequestException("Password provided is incorrect.");
+        companyRepository.delete(company);
+    }
+    public List<Company> getAllCompanies(){
+        return companyRepository.findAll();
     }
 }
