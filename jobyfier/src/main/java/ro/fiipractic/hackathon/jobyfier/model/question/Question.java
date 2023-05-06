@@ -16,7 +16,7 @@ public class Question {
     private String text;
     private int points;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "stage_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_question_stage",
                     foreignKeyDefinition = "FOREIGN KEY (stage_id) REFERENCES stages(id) ON DELETE CASCADE"))

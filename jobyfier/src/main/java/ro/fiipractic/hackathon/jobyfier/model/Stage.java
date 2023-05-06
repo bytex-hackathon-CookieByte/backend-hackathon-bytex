@@ -20,7 +20,7 @@ public class Stage {
 
     private long duration;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "challenge_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_stage_challenge",
                     foreignKeyDefinition = "FOREIGN KEY (challenge_id) REFERENCES challenges(id) ON DELETE CASCADE"))
