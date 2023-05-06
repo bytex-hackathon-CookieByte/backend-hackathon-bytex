@@ -1,7 +1,8 @@
-package ro.fiipractic.hackathon.jobyfier.model;
+package ro.fiipractic.hackathon.jobyfier.model.question;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
+import ro.fiipractic.hackathon.jobyfier.model.Stage;
 
 import java.util.UUID;
 

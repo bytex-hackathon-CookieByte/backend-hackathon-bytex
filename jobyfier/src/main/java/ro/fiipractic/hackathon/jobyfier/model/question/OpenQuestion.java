@@ -1,6 +1,7 @@
-package ro.fiipractic.hackathon.jobyfier.model;
+package ro.fiipractic.hackathon.jobyfier.model.question;
 
 import jakarta.persistence.Entity;
+import ro.fiipractic.hackathon.jobyfier.model.Stage;
 
 @Entity
 public class OpenQuestion extends Question {
