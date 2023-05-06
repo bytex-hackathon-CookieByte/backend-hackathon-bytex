@@ -29,8 +29,7 @@ public class Stage {
     public Stage() {
     }
 
-    public Stage(UUID id, String title, String description, long duration, Challenge challenge) {
-        this.id = id;
+    public Stage( String title, String description, long duration, Challenge challenge) {
         this.title = title;
         this.description = description;
         this.duration = duration;

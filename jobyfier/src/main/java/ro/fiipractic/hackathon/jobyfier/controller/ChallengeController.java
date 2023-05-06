@@ -2,14 +2,18 @@ package ro.fiipractic.hackathon.jobyfier.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.fiipractic.hackathon.jobyfier.dto.request.ChallengeRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.request.StageRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.response.ChallengeResponseDto;
+import ro.fiipractic.hackathon.jobyfier.dto.response.StageResponseDto;
 import ro.fiipractic.hackathon.jobyfier.model.Challenge;
+import ro.fiipractic.hackathon.jobyfier.model.Stage;
 import ro.fiipractic.hackathon.jobyfier.service.ChallengeService;
 import ro.fiipractic.hackathon.jobyfier.service.CompanyService;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/challenges")
@@ -28,5 +32,28 @@ public class ChallengeController {
     public ResponseEntity<String> createChallenge(@Valid @RequestBody ChallengeRequestDto challengeRequestDto) {
         Challenge challenge = challengeService.convertDtoToChallenge(challengeRequestDto);
         challenge.setCompany(companyService.getCompanyById(challengeRequestDto.getCompanyId()));
+        challengeService.saveChallenge(challenge);
+        return ResponseEntity.ok(challenge.getId().toString());
+    }
+
+    @GetMapping()
+    public List<ChallengeResponseDto> getChallenges() {
+        return challengeService.getChallenges();
+    }
+
+    @PostMapping("/stages")
+    public ResponseEntity<String> createChallengeStages(@Valid @RequestBody StageRequestDto stageRequestDto) {
+        Challenge challenge = challengeService.getChallengeById(stageRequestDto.getChallengeId());
+        Stage stage = challengeService.convertDtoToStage(stageRequestDto);
+        stage.setChallenge(challenge);
+        challengeService.addStageToChallenge(challenge, stage);
+        return ResponseEntity.ok(challenge.getId().toString());
+    }
+
+    @GetMapping("/stages")
+    public List<StageResponseDto> getChallengeStages(@RequestParam UUID challengeId) {
+        Challenge challenge = challengeService.getChallengeById(challengeId);
+        List<Stage> stages = challenge.getStages();
+        return challengeService.convertStageToDto(stages);
     }
 }

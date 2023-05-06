@@ -27,7 +27,7 @@ public class UserController {
     public ResponseEntity<String> registerUser(@Valid @RequestBody UserRequestDto userRequestDto){
         User user = userService.convertDtoToUser(userRequestDto);
         userService.save(user);
-        return ResponseEntity.ok("User created successfully");
+        return ResponseEntity.ok(user.getId().toString());
     }
 
     @GetMapping("/all")
@@ -47,7 +47,7 @@ public class UserController {
         Experience experience = userService.convertDtoToExperience(experienceRequestDto);
         experience.setUser(user);
         userService.saveExperience(experience);
-        return ResponseEntity.ok("Experience added successfully");
+        return ResponseEntity.ok(experience.getId().toString());
     }
 
     @GetMapping("/experience")
