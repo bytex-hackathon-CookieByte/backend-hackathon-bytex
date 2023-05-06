@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.fiipractic.hackathon.jobyfier.dto.request.CourseRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.response.CourseResponseDto;
 import ro.fiipractic.hackathon.jobyfier.model.Course;
 import ro.fiipractic.hackathon.jobyfier.service.CompanyService;
 import ro.fiipractic.hackathon.jobyfier.service.CourseService;
@@ -29,8 +30,9 @@ public class CourseController {
         return ResponseEntity.ok(course.getId().toString());
     }
     @GetMapping()
-    public List<Course> getAllCourses(){
-        return courseService.findAll();
+    public List<CourseResponseDto>  getAllCourses(){
+        List<Course> courses = courseService.findAll();
+        return courseService.convertCourseToDto(courses);
     }
 
 }

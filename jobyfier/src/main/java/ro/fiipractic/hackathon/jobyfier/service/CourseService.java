@@ -3,9 +3,11 @@ package ro.fiipractic.hackathon.jobyfier.service;
 
 import org.springframework.stereotype.Service;
 import ro.fiipractic.hackathon.jobyfier.dto.request.CourseRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.response.ChallengeResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.CourseResponseDto;
 import ro.fiipractic.hackathon.jobyfier.exception.BadRequestException;
 import ro.fiipractic.hackathon.jobyfier.exception.NotFoundException;
+import ro.fiipractic.hackathon.jobyfier.model.Challenge;
 import ro.fiipractic.hackathon.jobyfier.model.Course;
 import ro.fiipractic.hackathon.jobyfier.repository.CourseRepository;
 
@@ -32,20 +34,24 @@ public class CourseService  {
                 null
                 );
     }
+
+    public List<CourseResponseDto> convertCourseToDto(List<Course> courses) {
+        return courses.stream().
+                map(course -> new CourseResponseDto(
+                        course.getId(),
+                        course.getTitle(),
+                        course.getPrice(),
+                        course.getContent(),
+                        course.getCompany().getId()
+                )).toList();
+    }
     public Course getById(UUID id){
         if(courseRepository.findById(id).isEmpty()){
             throw new BadRequestException("The course with id " + id + " doesn't exist");
         }
         return courseRepository.findById(id).orElse(null);
     }
-    public CourseResponseDto convertCourseToDto(Course course) {
-        return new CourseResponseDto(
-                course.getId(),
-                course.getTitle(),
-                course.getPrice(),
-                course.getContent(),
-                course.getCompany().getId());
-    }
+
     public Course getByTitle(String title) {
         Course course = courseRepository.findByTitle(title);
         if(course == null)

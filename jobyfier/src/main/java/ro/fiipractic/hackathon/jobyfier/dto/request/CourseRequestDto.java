@@ -22,6 +22,7 @@ public class CourseRequestDto {
         this.companyId = companyId;
     }
 
+
     public String getTitle() {
         return title;
     }
