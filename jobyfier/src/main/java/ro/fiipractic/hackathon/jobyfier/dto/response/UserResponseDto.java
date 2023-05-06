@@ -12,6 +12,7 @@ public class UserResponseDto {
     private String email;
     private String phone;
     private int tokens;
+    private String avatar;
 
     public UserResponseDto(UUID id,
                            String username,
@@ -19,7 +20,7 @@ public class UserResponseDto {
                            String lastname,
                            String email,
                            String phone,
-                           int tokens) {
+                           int tokens, String avatar) {
         this.id = id;
         this.username = username;
         this.firstname = firstname;
@@ -27,6 +28,7 @@ public class UserResponseDto {
         this.email = email;
         this.phone = phone;
         this.tokens = tokens;
+        this.avatar = avatar;
     }
 
     public UUID getId() {
@@ -59,5 +61,9 @@ public class UserResponseDto {
 
     public String getType() {
         return type;
+    }
+
+    public String getAvatar() {
+        return avatar;
     }
 }

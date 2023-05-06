@@ -26,16 +26,20 @@ public class UserRequestDto {
 
     @NotBlank(message = "Phone number is required.")
     private String phone;
+    @NotBlank
+    private String avatar;
+
 
     private int tokens;
 
-    public UserRequestDto(String username, String password, String firstname, String lastname, String email, String phone, int tokens) {
+    public UserRequestDto(String username, String password, String firstname, String lastname, String email, String phone, int tokens, String avatar) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.phone = phone;
+        this.avatar = avatar;
         this.tokens = 0;
     }
 
@@ -65,5 +69,9 @@ public class UserRequestDto {
 
     public int getTokens() {
         return tokens;
+    }
+
+    public String getAvatar() {
+        return avatar;
     }
 }

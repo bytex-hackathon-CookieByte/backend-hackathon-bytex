@@ -49,7 +49,8 @@ public class UserService {
                 userRequestDto.getLastname(),
                 userRequestDto.getEmail(),
                 userRequestDto.getPhone(),
-                userRequestDto.getTokens());
+                userRequestDto.getTokens(),
+                userRequestDto.getAvatar());
     }
 
     public void save(User user) {
@@ -85,7 +86,8 @@ public class UserService {
                 user.getLastname(),
                 user.getEmail(),
                 user.getPhone(),
-                user.getTokens());
+                user.getTokens(),
+                user.getAvatar());
     }
 
     public Experience convertDtoToExperience(ExperienceRequestDto experienceRequestDto) {

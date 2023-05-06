@@ -20,8 +20,9 @@ public class User {
     private String email;
     private String phone;
     private int tokens;
+    private String avatar;
 
-    public User(String username, String password, String firstname, String lastname, String email, String phone, int tokens) {
+    public User(String username, String password, String firstname, String lastname, String email, String phone, int tokens, String avatar) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -29,6 +30,7 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.tokens = tokens;
+        this.avatar = avatar;
     }
 
     public User() {
@@ -96,5 +98,13 @@ public class User {
 
     public void setTokens(int tokens) {
         this.tokens = tokens;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
