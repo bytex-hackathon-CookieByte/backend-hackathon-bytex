@@ -15,9 +15,11 @@ import java.util.UUID;
 @Service
 public class CourseService  {
     private final CourseRepository courseRepository;
+    private final CompanyService companyService;
 
-    public CourseService(CourseRepository courseRepository) {
+    public CourseService(CourseRepository courseRepository, CompanyService companyService) {
         this.courseRepository = courseRepository;
+        this.companyService = companyService;
     }
     public void saveCourse(Course course){
         if(courseRepository.findByTitle(course.getTitle())!=null){
@@ -42,7 +44,7 @@ public class CourseService  {
                         course.getPrice(),
                         course.getPrize(),
                         course.getContent(),
-                        course.getCompany().getId()
+                        companyService.convertCompanyToDto(course.getCompany())
                 )).toList();
     }
     public Course getById(UUID id){

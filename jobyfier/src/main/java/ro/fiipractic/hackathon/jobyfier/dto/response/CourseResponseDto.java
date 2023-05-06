@@ -8,16 +8,16 @@ public class CourseResponseDto {
     private int price;
     private int prize;
     private String content;
-    private UUID companyId;
+    private CompanyResponseDto company;
 
 
-    public CourseResponseDto(UUID id, String title, int price, int prize, String content, UUID companyId) {
+    public CourseResponseDto(UUID id, String title, int price, int prize, String content, CompanyResponseDto company) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.prize = prize;
         this.content = content;
-        this.companyId = companyId;
+        this.company = company;
     }
 
     public UUID getId() {
@@ -52,12 +52,12 @@ public class CourseResponseDto {
         this.content = content;
     }
 
-    public UUID getCompanyId() {
-        return companyId;
+    public CompanyResponseDto getCompany() {
+        return company;
     }
 
-    public void setCompanyId(UUID companyId) {
-        this.companyId = companyId;
+    public void setCompany(CompanyResponseDto company) {
+        this.company = company;
     }
 
     public int getPrize() {
