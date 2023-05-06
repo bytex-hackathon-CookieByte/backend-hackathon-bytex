@@ -29,7 +29,8 @@ public class Experience {
     public Experience() {
     }
 
-    public Experience(String position, long startTime, long endTime, String description, String type) {
+    public Experience( User user, String position, long startTime, long endTime, String description, String type) {
+        this.user = user;
         this.position = position;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -92,4 +93,6 @@ public class Experience {
     public void setType(String type) {
         this.type = type;
     }
+
+
 }

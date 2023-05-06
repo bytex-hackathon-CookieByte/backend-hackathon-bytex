@@ -1,15 +1,20 @@
 package ro.fiipractic.hackathon.jobyfier.service;
 
 import org.springframework.stereotype.Service;
+import ro.fiipractic.hackathon.jobyfier.dto.request.ExperienceRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.request.UserRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.response.ExperienceResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.UserResponseDto;
 import ro.fiipractic.hackathon.jobyfier.exception.BadRequestException;
 import ro.fiipractic.hackathon.jobyfier.exception.NotFoundException;
+import ro.fiipractic.hackathon.jobyfier.model.Experience;
 import ro.fiipractic.hackathon.jobyfier.model.User;
 import ro.fiipractic.hackathon.jobyfier.repository.CompanyRepository;
+import ro.fiipractic.hackathon.jobyfier.repository.ExperienceRepository;
 import ro.fiipractic.hackathon.jobyfier.repository.UserRepository;
 import ro.fiipractic.hackathon.jobyfier.util.IPasswordEncoder;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -17,10 +22,15 @@ public class UserService {
     private UserRepository userRepository;
     private CompanyRepository companyRepository;
 
-    private IPasswordEncoder passwordEncoder;
+    private final IPasswordEncoder passwordEncoder;
+    private final ExperienceRepository experienceRepository;
 
-    public UserService(UserRepository userRepository, CompanyRepository companyRepository, IPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository,
+                       ExperienceRepository experienceRepository,
+                       CompanyRepository companyRepository,
+                       IPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.experienceRepository = experienceRepository;
         this.companyRepository = companyRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -64,5 +74,36 @@ public class UserService {
                 user.getEmail(),
                 user.getPhone(),
                 user.getTokens());
+    }
+
+    public Experience convertDtoToExperience(ExperienceRequestDto experienceRequestDto) {
+
+        Instant startDate = Instant.parse(experienceRequestDto.getStartDate());
+        Instant endDate = Instant.parse(experienceRequestDto.getEndDate());
+
+        return new Experience(null,
+                experienceRequestDto.getPosition(),
+                startDate.toEpochMilli(),
+                endDate.toEpochMilli(),
+                experienceRequestDto.getDescription(),
+                experienceRequestDto.getType());
+    }
+
+    public void saveExperience(Experience experience) {
+        experienceRepository.save(experience);
+    }
+
+    public List<Experience> findAllExperiences(User user) {
+        return experienceRepository.findAllByUserId(user.getId());
+    }
+
+    public List<ExperienceResponseDto> convertExperiencesToDto(List<Experience> experiences) {
+        return experiences.stream().map(experience -> new ExperienceResponseDto(
+                experience.getId(),
+                experience.getPosition(),
+                experience.getStartTime(),
+                experience.getEndTime(),
+                experience.getDescription(),
+                experience.getType())).toList();
     }
 }
