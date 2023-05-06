@@ -6,4 +6,5 @@ import ro.fiipractic.hackathon.jobyfier.model.Challenge;
 import java.util.UUID;
 
 public interface ChallengeRepository extends JpaRepository<Challenge, UUID> {
+
 }
