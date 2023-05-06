@@ -60,9 +60,9 @@ public class UserService {
     }
 
     public User getUserByUsername(String username) {
-        if(userRepository.getByUsername(username)==null)
+        if(userRepository.findByUsername(username)==null)
             throw new NotFoundException("User not found!");
-        return userRepository.getByUsername(username);
+        return userRepository.findByUsername(username);
     }
 
     public UserResponseDto convertUserToDto(User user) {
