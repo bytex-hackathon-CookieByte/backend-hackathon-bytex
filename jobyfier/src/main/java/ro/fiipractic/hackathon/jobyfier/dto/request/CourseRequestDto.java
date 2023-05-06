@@ -10,14 +10,17 @@ public class CourseRequestDto {
     private String title;
     @NotNull(message = "Course price is required.")
     private int price;
+    @NotNull(message = "Course prize is required.")
+    private int prize;
     @NotBlank(message = "Course content is required.")
     private String content;
     @NotNull
     private UUID companyId;
 
-    public CourseRequestDto(String title, int price, String content, UUID companyId) {
+    public CourseRequestDto(String title, int price, int prize, String content, UUID companyId) {
         this.title = title;
         this.price = price;
+        this.prize = prize;
         this.content = content;
         this.companyId = companyId;
     }
@@ -55,4 +58,11 @@ public class CourseRequestDto {
         this.companyId = companyId;
     }
 
+    public int getPrize() {
+        return prize;
+    }
+
+    public void setPrize(int prize) {
+        this.prize = prize;
+    }
 }

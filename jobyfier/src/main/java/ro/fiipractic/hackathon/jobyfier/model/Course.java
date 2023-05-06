@@ -15,6 +15,7 @@ public class Course {
     private UUID id;
     private String title;
     private int price;
+    private int prize;
     private String content;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -26,9 +27,10 @@ public class Course {
     public Course() {
     }
 
-    public Course(String title, int price, String content, Company company) {
+    public Course(String title, int price, int prize, String content, Company company) {
         this.title = title;
         this.price = price;
+        this.prize = prize;
         this.content = content;
         this.company = company;
     }
@@ -74,4 +76,11 @@ public class Course {
         this.company = company;
     }
 
+    public int getPrize() {
+        return prize;
+    }
+
+    public void setPrize(int prize) {
+        this.prize = prize;
+    }
 }
