@@ -1,6 +1,8 @@
 package ro.fiipractic.hackathon.jobyfier.service;
 
 import org.springframework.stereotype.Service;
+import ro.fiipractic.hackathon.jobyfier.dto.request.CompanyRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.response.CompanyResponseDto;
 import ro.fiipractic.hackathon.jobyfier.exception.BadRequestException;
 import ro.fiipractic.hackathon.jobyfier.model.Company;
 import ro.fiipractic.hackathon.jobyfier.repository.CompanyRepository;
@@ -21,6 +23,15 @@ public class CompanyService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+    public Company convertDtoToCompany(CompanyRequestDto companyRequestDto){
+        return new Company(companyRequestDto.getUsername(),
+                companyRequestDto.getName(),
+                companyRequestDto.getPassword(),
+                companyRequestDto.getEmail(),
+                companyRequestDto.getPhone(),
+                companyRequestDto.getTokens()
+        );
+    }
     public Company saveCompany(Company company){
         if(companyRepository.findByUsername(company.getUsername())!=null){
             throw new BadRequestException("Username " + company.getUsername() + " taken");
@@ -31,7 +42,7 @@ public class CompanyService {
         company.setPassword(passwordEncoder.encode(company.getPassword()));
         return companyRepository.save(company);
     }
-    public Company getByUsername(String username) {
+    public Company getCompanyByUsername(String username) {
         Company company = companyRepository.findByUsername(username);
         if(company == null)
             throw new BadRequestException("User with username '" + username + "' was not found.");
@@ -44,5 +55,14 @@ public class CompanyService {
     }
     public List<Company> getAllCompanies(){
         return companyRepository.findAll();
+    }
+    public CompanyResponseDto convertCompanyToDto(Company company) {
+        return new CompanyResponseDto(
+                company.getId(),
+                company.getUsername(),
+                company.getName(),
+                company.getEmail(),
+                company.getPhone(),
+                company.getTokens());
     }
 }
