@@ -1,4 +1,4 @@
-package ro.fiipractic.hackathon.jobyfier.dto;
+package ro.fiipractic.hackathon.jobyfier.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

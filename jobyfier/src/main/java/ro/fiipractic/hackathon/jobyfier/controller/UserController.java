@@ -3,7 +3,8 @@ package ro.fiipractic.hackathon.jobyfier.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ro.fiipractic.hackathon.jobyfier.dto.UserRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.request.UserRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.response.UserResponseDto;
 import ro.fiipractic.hackathon.jobyfier.model.User;
 import ro.fiipractic.hackathon.jobyfier.service.UserService;
 
@@ -26,8 +27,16 @@ public class UserController {
         return ResponseEntity.ok("User created successfully");
     }
 
-    @GetMapping()
+
+
+    @GetMapping("/all")
     public List<User> getAllUsers(){
         return userService.findAll();
+    }
+
+    @GetMapping()
+    public UserResponseDto getUserByUsername(@RequestParam String username){
+        User user = userService.getUserByUsername(username);
+        return userService.convertUserToDto(user);
     }
 }

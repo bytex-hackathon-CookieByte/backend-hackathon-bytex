@@ -1,8 +1,10 @@
 package ro.fiipractic.hackathon.jobyfier.service;
 
 import org.springframework.stereotype.Service;
-import ro.fiipractic.hackathon.jobyfier.dto.UserRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.request.UserRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.response.UserResponseDto;
 import ro.fiipractic.hackathon.jobyfier.exception.BadRequestException;
+import ro.fiipractic.hackathon.jobyfier.exception.NotFoundException;
 import ro.fiipractic.hackathon.jobyfier.model.User;
 import ro.fiipractic.hackathon.jobyfier.repository.CompanyRepository;
 import ro.fiipractic.hackathon.jobyfier.repository.UserRepository;
@@ -45,5 +47,22 @@ public class UserService {
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public User getUserByUsername(String username) {
+        if(userRepository.getByUsername(username)==null)
+            throw new NotFoundException("User not found!");
+        return userRepository.getByUsername(username);
+    }
+
+    public UserResponseDto convertUserToDto(User user) {
+        return new UserResponseDto(
+                user.getId(),
+                user.getUsername(),
+                user.getFirstname(),
+                user.getLastname(),
+                user.getEmail(),
+                user.getPhone(),
+                user.getTokens());
     }
 }
