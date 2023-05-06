@@ -43,7 +43,7 @@ public class UserController {
         return userService.convertUserToDto(user);
     }
 
-    @PostMapping("experience")
+    @PostMapping("/experience")
     public ResponseEntity<String> addExperience(@Valid @RequestBody ExperienceRequestDto experienceRequestDto){
         User user = userService.getUserByUsername(experienceRequestDto.getUsername());
         Experience experience = userService.convertDtoToExperience(experienceRequestDto);

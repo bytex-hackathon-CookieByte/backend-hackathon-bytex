@@ -1,23 +1,25 @@
 package ro.fiipractic.hackathon.jobyfier.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
-import ro.fiipractic.hackathon.jobyfier.model.Company;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.UUID;
 
 public class CourseRequestDto {
     @NotBlank
     private String title;
-    @NotBlank(message = "Course price is required.")
+    @NotNull(message = "Course price is required.")
     private int price;
     @NotBlank(message = "Course content is required.")
     private String content;
-    @NotBlank(message = "Company is required.")
-    private Company company;
+    @NotNull
+    private UUID companyId;
 
-    public CourseRequestDto(String title, int price, String content, Company company) {
+    public CourseRequestDto(String title, int price, String content, UUID companyId) {
         this.title = title;
         this.price = price;
         this.content = content;
-        this.company = company;
+        this.companyId = companyId;
     }
 
     public String getTitle() {
@@ -44,11 +46,11 @@ public class CourseRequestDto {
         this.content = content;
     }
 
-    public Company getCompany() {
-        return company;
+    public UUID getCompanyId() {
+        return companyId;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setCompanyId(UUID companyId) {
+        this.companyId = companyId;
     }
 }

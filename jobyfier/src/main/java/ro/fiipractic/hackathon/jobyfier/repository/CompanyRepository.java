@@ -7,4 +7,5 @@ import java.util.UUID;
 
 public interface CompanyRepository extends JpaRepository<Company, UUID> {
     Company findByUsername(String username);
+
 }

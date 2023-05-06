@@ -10,6 +10,8 @@ import ro.fiipractic.hackathon.jobyfier.repository.UserRepository;
 import ro.fiipractic.hackathon.jobyfier.util.IPasswordEncoder;
 
 import java.util.List;
+import java.util.UUID;
+
 @Service
 
 public class CompanyService {
@@ -32,7 +34,7 @@ public class CompanyService {
                 companyRequestDto.getTokens()
         );
     }
-    public Company saveCompany(Company company){
+    public void saveCompany(Company company){
         if(companyRepository.findByUsername(company.getUsername())!=null){
             throw new BadRequestException("Username " + company.getUsername() + " taken");
         }
@@ -40,7 +42,7 @@ public class CompanyService {
             throw new BadRequestException("Username " + company.getUsername() + " taken");
         }
         company.setPassword(passwordEncoder.encode(company.getPassword()));
-        return companyRepository.save(company);
+        companyRepository.save(company);
     }
     public Company getCompanyByUsername(String username) {
         Company company = companyRepository.findByUsername(username);
@@ -52,6 +54,12 @@ public class CompanyService {
         if(!passwordEncoder.matches(password, company.getPassword()))
             throw new BadRequestException("Password provided is incorrect.");
         companyRepository.delete(company);
+    }
+    public Company getCompanyById(UUID id){
+        if(companyRepository.findById(id).isEmpty()){
+            throw new BadRequestException("Company with id " + id + " doesn't exist!");
+        }
+        return companyRepository.findById(id).orElse(null);
     }
     public List<Company> getAllCompanies(){
         return companyRepository.findAll();
