@@ -18,7 +18,7 @@ public class ScoreService {
     public void save(User user, Challenge challenge, int scoreValue) {
         UUID userId = user.getId();
         UUID challengeId = challenge.getId();
-        if(scoreRepository.findByUserAndChallenge(userId,challengeId))
+        if(scoreRepository.findByUserAndChallenge(user,challenge)!=null)
             throw new BadRequestException("User already took the challenge!");
         Score score = new Score(user,challenge,scoreValue);
         scoreRepository.save(score);

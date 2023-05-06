@@ -46,6 +46,10 @@ public class ChallengeController {
     public Challenge getChallengeById(@RequestParam UUID id) {
         return challengeService.getChallengeById(id);
     }
+    @GetMapping("/title")
+    public Challenge getChallengeById(@RequestParam String title) {
+        return challengeService.getChallengeByTitle(title);
+    }
 
 
     @PostMapping("/stages")
