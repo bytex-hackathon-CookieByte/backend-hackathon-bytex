@@ -6,13 +6,11 @@ import org.springframework.web.bind.annotation.*;
 import ro.fiipractic.hackathon.jobyfier.dto.request.*;
 import ro.fiipractic.hackathon.jobyfier.dto.response.ExperienceResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.UserResponseDto;
-import ro.fiipractic.hackathon.jobyfier.model.Challenge;
-import ro.fiipractic.hackathon.jobyfier.model.Course;
-import ro.fiipractic.hackathon.jobyfier.model.Experience;
-import ro.fiipractic.hackathon.jobyfier.model.User;
+import ro.fiipractic.hackathon.jobyfier.model.*;
 import ro.fiipractic.hackathon.jobyfier.service.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -81,6 +79,11 @@ public class UserController {
         int scoreValue = scoreRequestDto.getScoreValue();
         scoreService.save(user,challenge,scoreValue);
         return ResponseEntity.ok("Score added successfully");
+    }
+    @GetMapping("/scores")
+    public List<Score> getScoreByUser(@RequestParam UUID userId){
+        System.out.println(userId);
+        return scoreService.getAllByUserId(userId);
     }
 
     @PostMapping("/tokens/add")

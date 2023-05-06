@@ -7,6 +7,7 @@ import ro.fiipractic.hackathon.jobyfier.model.Score;
 import ro.fiipractic.hackathon.jobyfier.model.User;
 import ro.fiipractic.hackathon.jobyfier.repository.ScoreRepository;
 
+import java.util.List;
 import java.util.UUID;
 @Service
 public class ScoreService {
@@ -22,5 +23,9 @@ public class ScoreService {
             throw new BadRequestException("User already took the challenge!");
         Score score = new Score(user,challenge,scoreValue);
         scoreRepository.save(score);
+    }
+
+    public List<Score> getAllByUserId(UUID userId) {
+        return scoreRepository.getAllByUserId(userId);
     }
 }
