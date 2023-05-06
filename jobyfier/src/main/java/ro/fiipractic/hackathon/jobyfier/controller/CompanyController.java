@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.fiipractic.hackathon.jobyfier.dto.request.CompanyRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.response.CompanyResponseDto;
 import ro.fiipractic.hackathon.jobyfier.model.Company;
 import ro.fiipractic.hackathon.jobyfier.service.CompanyService;
 
@@ -20,19 +21,18 @@ public class CompanyController {
     }
     @PostMapping("/register")
     public ResponseEntity<String> registerCompany(@Valid @RequestBody CompanyRequestDto companyRequestDto){
-        Company company = new Company(companyRequestDto.getUsername(),
-                companyRequestDto.getName(),
-                companyRequestDto.getPassword(),
-                companyRequestDto.getEmail(),
-                companyRequestDto.getPhone(),
-                companyRequestDto.getTokens()
-        );
+        Company company = companyService.convertDtoToCompany(companyRequestDto);
         companyService.saveCompany(company);
         return ResponseEntity.ok("Company " + company.getUsername() + " has been registered successfully!");
     }
+    @GetMapping("/all")
+    public List<Company> getAllCompanies(){
+        return companyService.getAllCompanies();
+    }
 
     @GetMapping()
-    public List<Company> getAllUsers(){
-        return companyService.getAllCompanies();
+    public CompanyResponseDto getUserByUsername(@RequestParam String username){
+        Company company = companyService.getCompanyByUsername(username);
+        return companyService.convertCompanyToDto(company);
     }
 }
