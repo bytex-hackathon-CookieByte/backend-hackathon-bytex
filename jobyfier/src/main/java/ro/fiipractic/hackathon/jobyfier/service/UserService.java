@@ -11,11 +11,13 @@ import ro.fiipractic.hackathon.jobyfier.model.Experience;
 import ro.fiipractic.hackathon.jobyfier.model.User;
 import ro.fiipractic.hackathon.jobyfier.repository.CompanyRepository;
 import ro.fiipractic.hackathon.jobyfier.repository.ExperienceRepository;
+import ro.fiipractic.hackathon.jobyfier.repository.UserCourseRepository;
 import ro.fiipractic.hackathon.jobyfier.repository.UserRepository;
 import ro.fiipractic.hackathon.jobyfier.util.IPasswordEncoder;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -24,15 +26,17 @@ public class UserService {
 
     private final IPasswordEncoder passwordEncoder;
     private final ExperienceRepository experienceRepository;
+    private final UserCourseRepository userCourseRepository;
 
     public UserService(UserRepository userRepository,
                        ExperienceRepository experienceRepository,
                        CompanyRepository companyRepository,
-                       IPasswordEncoder passwordEncoder) {
+                       IPasswordEncoder passwordEncoder,  UserCourseRepository userCourseRepository) {
         this.userRepository = userRepository;
         this.experienceRepository = experienceRepository;
         this.companyRepository = companyRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userCourseRepository = userCourseRepository;
     }
 
 
@@ -57,6 +61,12 @@ public class UserService {
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+    public User getById(UUID id){
+        if(userRepository.findById(id).isEmpty()){
+            throw new BadRequestException("The user with id " + id + " doesn't exist");
+        }
+        return userRepository.findById(id).orElse(null);
     }
 
     public User getUserByUsername(String username) {
@@ -106,4 +116,6 @@ public class UserService {
                 experience.getDescription(),
                 experience.getType())).toList();
     }
+
+
 }

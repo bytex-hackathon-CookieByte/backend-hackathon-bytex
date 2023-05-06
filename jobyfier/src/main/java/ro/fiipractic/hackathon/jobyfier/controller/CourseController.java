@@ -34,7 +34,7 @@ public class CourseController {
         return courseService.findAll();
     }
     @GetMapping()
-    public CourseResponseDto getUserByUsername(@RequestParam String title){
+    public CourseResponseDto getUserByTitle(@RequestParam String title){
         Course course = courseService.getByTitle(title);
         return courseService.convertCourseToDto(course);
     }
