@@ -100,7 +100,4 @@ public class ChallengeService {
         stageRepository.save(stage);
     }
 
-    public Challenge getChallengeByTitle(String title) {
-        return challengeRepository.getByTitle(title);
-    }
 }

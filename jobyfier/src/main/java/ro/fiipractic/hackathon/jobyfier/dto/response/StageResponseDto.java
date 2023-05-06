@@ -22,4 +22,43 @@ public class StageResponseDto {
     }
 
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    public UUID getChallengeId() {
+        return challengeId;
+    }
+
+    public void setChallengeId(UUID challengeId) {
+        this.challengeId = challengeId;
+    }
 }
