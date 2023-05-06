@@ -1,5 +1,6 @@
 package ro.fiipractic.hackathon.jobyfier.service;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ro.fiipractic.hackathon.jobyfier.dto.request.CompanyRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.CompanyResponseDto;
@@ -72,5 +73,13 @@ public class CompanyService {
                 company.getEmail(),
                 company.getPhone(),
                 company.getTokens());
+    }
+
+    public ResponseEntity<Object> login(String username, String password) {
+        Company company = companyRepository.findByUsername(username);
+
+        if(!passwordEncoder.matches(password, company.getPassword()))
+            throw new BadRequestException("Invalid password!");
+        return ResponseEntity.ok(convertCompanyToDto(company));
     }
 }

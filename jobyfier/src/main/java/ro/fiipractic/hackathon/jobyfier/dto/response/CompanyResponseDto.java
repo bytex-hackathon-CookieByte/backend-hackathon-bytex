@@ -3,6 +3,8 @@ package ro.fiipractic.hackathon.jobyfier.dto.response;
 import java.util.UUID;
 
 public class CompanyResponseDto {
+
+    private String type = "company";
     private UUID id;
 
     private String username;
@@ -43,5 +45,9 @@ public class CompanyResponseDto {
 
     public int getTokens() {
         return tokens;
+    }
+
+    public String getType() {
+        return type;
     }
 }

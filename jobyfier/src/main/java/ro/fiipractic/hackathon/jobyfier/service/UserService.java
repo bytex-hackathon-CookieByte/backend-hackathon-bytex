@@ -1,5 +1,6 @@
 package ro.fiipractic.hackathon.jobyfier.service;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ro.fiipractic.hackathon.jobyfier.dto.request.ExperienceRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.request.UserRequestDto;
@@ -118,4 +119,13 @@ public class UserService {
     }
 
 
+
+    public ResponseEntity<Object> login(String username, String password) {
+        User user = userRepository.findByUsername(username);
+
+        if(!passwordEncoder.matches(password, user.getPassword())) {
+            throw new BadRequestException("Invalid password!");
+        }
+        return ResponseEntity.ok(convertUserToDto(user));
+    }
 }
