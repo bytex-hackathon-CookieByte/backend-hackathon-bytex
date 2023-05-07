@@ -87,7 +87,7 @@ public class UserController {
     }
     @PostMapping("/scores")
     public ResponseEntity<String> addScore(@RequestBody ScoreRequestDto scoreRequestDto){
-        User user = userService.getById(scoreRequestDto.getUserId());
+        User user = userService.getByUsername(scoreRequestDto.getUsername());
         Challenge challenge = challengeService.getChallengeById(scoreRequestDto.getChallengeId());
         int scoreValue = scoreRequestDto.getScoreValue();
         scoreService.save(user,challenge,-1);
@@ -96,7 +96,7 @@ public class UserController {
 
     @PutMapping("/scores")
     public ResponseEntity<String> setScore(@RequestBody ScoreRequestDto scoreRequestDto){
-        User user = userService.getById(scoreRequestDto.getUserId());
+        User user = userService.getByUsername(scoreRequestDto.getUsername());
         Challenge challenge = challengeService.getChallengeById(scoreRequestDto.getChallengeId());
         int scoreValue = scoreRequestDto.getScoreValue();
         scoreService.updateScore(user,challenge,scoreValue);
