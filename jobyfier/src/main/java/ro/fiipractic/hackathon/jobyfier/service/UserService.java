@@ -139,7 +139,8 @@ public class UserService {
         userRepository.updateTokens(user.getId(), user.getTokens());
     }
 
-    public String getAvatarsByUserId(UUID id) {
-        return userRepository.getAvatarsByUserId(id);
+    @Transactional
+    public void updateAvatar(User user) {
+        userRepository.updateAvatar(user.getId(), user.getAvatar());
     }
 }

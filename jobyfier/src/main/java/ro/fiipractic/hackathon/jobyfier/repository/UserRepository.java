@@ -15,4 +15,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Query("UPDATE User u SET u.tokens = :tokens WHERE u.id = :userId")
     void updateTokens(@Param("userId")UUID id, @Param("tokens")int tokens);
 
+    @Modifying
+    @Query("UPDATE User u SET u.avatar = :avatar WHERE u.id = :userId")
+    void updateAvatar(@Param("userId")UUID id, @Param("avatar")String avatar);
 }
