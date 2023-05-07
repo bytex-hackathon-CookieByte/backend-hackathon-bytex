@@ -10,7 +10,6 @@ import ro.fiipractic.hackathon.jobyfier.dto.request.StageRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.ChallengeResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.StageResponseDto;
 import ro.fiipractic.hackathon.jobyfier.model.Challenge;
-import ro.fiipractic.hackathon.jobyfier.model.Course;
 import ro.fiipractic.hackathon.jobyfier.model.Stage;
 import ro.fiipractic.hackathon.jobyfier.model.question.FixedQuestion;
 import ro.fiipractic.hackathon.jobyfier.model.question.OpenQuestion;
@@ -77,7 +76,7 @@ public class ChallengeController {
         List<Stage> stages = challengeService.getStagesByChallengeId(challengeId);
         return challengeService.convertStageToDto(stages);
     }
-    @PostMapping("/stages/questions//open")
+    @PostMapping("/stages/questions/open")
     public ResponseEntity<String> addQuestionOpen(@Valid @RequestBody QuestionOpenRequestDto questionOpenRequestDto){
         OpenQuestion openQuestion = questionService.convertDtoToQuestionOpen(questionOpenRequestDto);
         openQuestion.setStage(challengeService.findStageById(questionOpenRequestDto.getStageId()));
