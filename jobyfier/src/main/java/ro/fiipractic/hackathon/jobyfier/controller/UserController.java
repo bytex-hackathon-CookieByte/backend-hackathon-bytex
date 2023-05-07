@@ -95,18 +95,18 @@ public class UserController {
     }
 
     @PostMapping("/tokens/add")
-    public ResponseEntity<String> addToken(@Valid @RequestBody UserTokensRequestDto userTokensRequestDto){
+    public ResponseEntity<Integer> addToken(@Valid @RequestBody UserTokensRequestDto userTokensRequestDto){
         User user = userService.getUserByUsername(userTokensRequestDto.getUsername());
         user.setTokens(user.getTokens() + userTokensRequestDto.getTokens());
         userService.updateTokens(user);
-        return ResponseEntity.ok("Tokens added successfully");
+        return ResponseEntity.ok(user.getTokens());
     }
 
     @PostMapping("/tokens/subtract")
-    public ResponseEntity<String> subtractToken(@Valid @RequestBody UserTokensRequestDto userTokensRequestDto){
+    public ResponseEntity<Integer> subtractToken(@Valid @RequestBody UserTokensRequestDto userTokensRequestDto){
         User user = userService.getUserByUsername(userTokensRequestDto.getUsername());
         user.setTokens(user.getTokens() - userTokensRequestDto.getTokens());
         userService.updateTokens(user);
-        return ResponseEntity.ok("Tokens subtracted successfully");
+        return ResponseEntity.ok(user.getTokens());
     }
 }

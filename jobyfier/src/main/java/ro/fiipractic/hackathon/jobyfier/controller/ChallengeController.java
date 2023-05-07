@@ -10,7 +10,6 @@ import ro.fiipractic.hackathon.jobyfier.dto.request.StageRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.ChallengeResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.StageResponseDto;
 import ro.fiipractic.hackathon.jobyfier.model.Challenge;
-import ro.fiipractic.hackathon.jobyfier.model.Course;
 import ro.fiipractic.hackathon.jobyfier.model.Stage;
 import ro.fiipractic.hackathon.jobyfier.model.question.FixedQuestion;
 import ro.fiipractic.hackathon.jobyfier.model.question.OpenQuestion;
