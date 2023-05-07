@@ -85,7 +85,6 @@ public class UserController {
     }
     @GetMapping("/scores")
     public List<Score> getScoreByUser(@RequestParam UUID userId){
-        System.out.println(userId);
         return scoreService.getAllByUserId(userId);
     }
 
