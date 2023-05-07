@@ -1,5 +1,6 @@
 package ro.fiipractic.hackathon.jobyfier.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import ro.fiipractic.hackathon.jobyfier.exception.BadRequestException;
 import ro.fiipractic.hackathon.jobyfier.model.Challenge;
@@ -27,5 +28,12 @@ public class ScoreService {
 
     public List<Score> getAllByUserId(UUID userId) {
         return scoreRepository.getAllByUserId(userId);
+    }
+    @Transactional
+    public void updateScore(User user, Challenge challenge, int scoreValue) {
+        scoreRepository.updateScore(user.getId(),challenge.getId(),scoreValue);
+    }
+     {
+
     }
 }

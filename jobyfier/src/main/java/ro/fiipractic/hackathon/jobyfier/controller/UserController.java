@@ -77,7 +77,16 @@ public class UserController {
         User user = userService.getById(scoreRequestDto.getUserId());
         Challenge challenge = challengeService.getChallengeById(scoreRequestDto.getChallengeId());
         int scoreValue = scoreRequestDto.getScoreValue();
-        scoreService.save(user,challenge,scoreValue);
+        scoreService.save(user,challenge,-1);
+        return ResponseEntity.ok("Score added successfully");
+    }
+
+    @PostMapping("/scores")
+    public ResponseEntity<String> setScore(@RequestBody ScoreRequestDto scoreRequestDto){
+        User user = userService.getById(scoreRequestDto.getUserId());
+        Challenge challenge = challengeService.getChallengeById(scoreRequestDto.getChallengeId());
+        int scoreValue = scoreRequestDto.getScoreValue();
+        scoreService.updateScore(user,challenge,scoreValue);
         return ResponseEntity.ok("Score added successfully");
     }
     @GetMapping("/scores")

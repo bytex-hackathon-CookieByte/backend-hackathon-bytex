@@ -77,7 +77,7 @@ public class ChallengeController {
         List<Stage> stages = challengeService.getStagesByChallengeId(challengeId);
         return challengeService.convertStageToDto(stages);
     }
-    @PostMapping("/stages/questions//open")
+    @PostMapping("/stages/questions/open")
     public ResponseEntity<String> addQuestionOpen(@Valid @RequestBody QuestionOpenRequestDto questionOpenRequestDto){
         OpenQuestion openQuestion = questionService.convertDtoToQuestionOpen(questionOpenRequestDto);
         openQuestion.setStage(challengeService.findStageById(questionOpenRequestDto.getStageId()));
