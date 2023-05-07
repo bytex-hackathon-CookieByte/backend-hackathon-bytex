@@ -89,7 +89,7 @@ public class UserController {
     @PostMapping("/tokens/add")
     public ResponseEntity<String> addToken(@Valid @RequestBody UserTokensRequestDto userTokensRequestDto){
         User user = userService.getUserByUsername(userTokensRequestDto.getUsername());
-        user.setTokens(user.getTokens() - userTokensRequestDto.getTokens());
+        user.setTokens(user.getTokens() + userTokensRequestDto.getTokens());
         userService.updateTokens(user);
         return ResponseEntity.ok("Tokens added successfully");
     }
