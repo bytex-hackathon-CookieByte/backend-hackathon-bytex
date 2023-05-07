@@ -144,4 +144,9 @@ public class UserService {
             throw new NotFoundException("User not found!");
         return userRepository.findByUsername(username);
     }
+
+    @Transactional
+    public void updateAvatar(User user) {
+        userRepository.updateAvatar(user.getId(), user.getAvatar());
+    }
 }

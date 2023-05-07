@@ -47,6 +47,19 @@ public class UserController {
         User user = userService.getUserByUsername(username);
         return userService.convertUserToDto(user);
     }
+    @GetMapping("/avatars")
+    public String getAvatarById(@RequestParam UUID userId){
+        User user = userService.getById(userId);
+        return user.getAvatar();
+    }
+    @PutMapping("/avatars")
+    public ResponseEntity<String> setAvatarByUserId(@RequestParam UUID userId,@RequestParam String avatar){
+        User user = userService.getById(userId);
+        user.setAvatar(avatar);
+
+        userService.updateAvatar(user);
+        return ResponseEntity.ok(user.getId().toString());
+    }
 
     @PostMapping("/experience")
     public ResponseEntity<String> addExperience(@Valid @RequestBody ExperienceRequestDto experienceRequestDto){
@@ -73,16 +86,17 @@ public class UserController {
         return ResponseEntity.ok("Course added successfully");
     }
     @PostMapping("/scores")
-    public ResponseEntity<String> addScore(@Valid @RequestBody ScoreRequestDto scoreRequestDto){
-        User user = userService.getByUsername(scoreRequestDto.getUsername());
+    public ResponseEntity<String> addScore(@RequestBody ScoreRequestDto scoreRequestDto){
+        User user = userService.getById(scoreRequestDto.getUserId());
         Challenge challenge = challengeService.getChallengeById(scoreRequestDto.getChallengeId());
+        int scoreValue = scoreRequestDto.getScoreValue();
         scoreService.save(user,challenge,-1);
         return ResponseEntity.ok("Challenge added successfully");
     }
 
     @PutMapping("/scores")
-    public ResponseEntity<String> setScore(@Valid @RequestBody ScoreRequestDto scoreRequestDto){
-        User user = userService.getByUsername(scoreRequestDto.getUsername());
+    public ResponseEntity<String> setScore(@RequestBody ScoreRequestDto scoreRequestDto){
+        User user = userService.getById(scoreRequestDto.getUserId());
         Challenge challenge = challengeService.getChallengeById(scoreRequestDto.getChallengeId());
         int scoreValue = scoreRequestDto.getScoreValue();
         scoreService.updateScore(user,challenge,scoreValue);
