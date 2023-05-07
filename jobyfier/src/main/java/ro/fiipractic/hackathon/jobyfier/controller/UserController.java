@@ -3,10 +3,7 @@ package ro.fiipractic.hackathon.jobyfier.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ro.fiipractic.hackathon.jobyfier.dto.request.ExperienceRequestDto;
-import ro.fiipractic.hackathon.jobyfier.dto.request.ScoreRequestDto;
-import ro.fiipractic.hackathon.jobyfier.dto.request.UserCourseRequestDto;
-import ro.fiipractic.hackathon.jobyfier.dto.request.UserRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.request.*;
 import ro.fiipractic.hackathon.jobyfier.dto.response.ExperienceResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.UserResponseDto;
 import ro.fiipractic.hackathon.jobyfier.model.*;
@@ -89,19 +86,18 @@ public class UserController {
     }
 
     @PostMapping("/tokens/add")
-    public ResponseEntity<String> addToken(@RequestParam String username, @RequestParam int tokens){
-        User user = userService.getUserByUsername(username);
-        user.setTokens(user.getTokens() + tokens);
+    public ResponseEntity<String> addToken(@Valid @RequestBody UserTokensRequestDto userTokensRequestDto){
+        User user = userService.getUserByUsername(userTokensRequestDto.getUsername());
+        user.setTokens(user.getTokens() + userTokensRequestDto.getTokens());
         userService.updateTokens(user);
         return ResponseEntity.ok("Tokens added successfully");
     }
 
-    @PostMapping("/tokens/substract")
-    public ResponseEntity<String> subtractToken(@RequestParam String username, @RequestParam int tokens){
-        User user = userService.getUserByUsername(username);
-        user.setTokens(user.getTokens() - tokens);
+    @PostMapping("/tokens/subtract")
+    public ResponseEntity<String> subtractToken(@Valid @RequestBody UserTokensRequestDto userTokensRequestDto){
+        User user = userService.getUserByUsername(userTokensRequestDto.getUsername());
+        user.setTokens(user.getTokens() - userTokensRequestDto.getTokens());
         userService.updateTokens(user);
         return ResponseEntity.ok("Tokens subtracted successfully");
     }
-
 }
