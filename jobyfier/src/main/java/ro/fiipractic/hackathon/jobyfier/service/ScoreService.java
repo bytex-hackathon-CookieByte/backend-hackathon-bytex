@@ -33,7 +33,4 @@ public class ScoreService {
     public void updateScore(User user, Challenge challenge, int scoreValue) {
         scoreRepository.updateScore(user.getId(),challenge.getId(),scoreValue);
     }
-     {
-
-    }
 }

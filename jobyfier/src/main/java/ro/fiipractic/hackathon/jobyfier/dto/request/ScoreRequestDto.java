@@ -1,29 +1,24 @@
 package ro.fiipractic.hackathon.jobyfier.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
 public class ScoreRequestDto {
-    @NotNull
-    private UUID userId;
+    @NotBlank
+    private String username;
     @NotNull
     private UUID challengeId;
     @NotNull
     private int scoreValue;
 
-    public ScoreRequestDto(UUID userId, UUID challengeId, int scoreValue) {
-        this.userId = userId;
-        this.challengeId = challengeId;
-        this.scoreValue = scoreValue;
+    public String getUsername() {
+        return username;
     }
 
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public UUID getChallengeId() {
