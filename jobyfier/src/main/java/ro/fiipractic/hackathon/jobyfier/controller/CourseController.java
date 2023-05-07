@@ -41,6 +41,4 @@ public class CourseController {
         courseService.deleteCourse(course);
         return ResponseEntity.ok("'" + course.getTitle() + "' successfully deleted!");
     }
-
-
 }

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.fiipractic.hackathon.jobyfier.dto.request.CompanyRequestDto;
+import ro.fiipractic.hackathon.jobyfier.dto.request.UserTokensRequestDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.CompanyResponseDto;
 import ro.fiipractic.hackathon.jobyfier.model.Company;
 import ro.fiipractic.hackathon.jobyfier.service.CompanyService;
@@ -35,5 +36,21 @@ public class CompanyController {
     public CompanyResponseDto getUserByUsername(@RequestParam UUID id){
         Company company = companyService.getCompanyById(id);
         return companyService.convertCompanyToDto(company);
+    }
+
+    @PostMapping("/tokens/add")
+    public ResponseEntity<Integer> addToken(@Valid @RequestBody UserTokensRequestDto userTokensRequestDto){
+        Company company = companyService.getUserByUsername(userTokensRequestDto.getUsername());
+        company.setTokens(company.getTokens() + userTokensRequestDto.getTokens());
+        companyService.updateTokens(company);
+        return ResponseEntity.ok(company.getTokens());
+    }
+
+    @PostMapping("/tokens/subtract")
+    public ResponseEntity<Integer> subtractToken(@Valid @RequestBody UserTokensRequestDto userTokensRequestDto){
+        Company company = companyService.getUserByUsername(userTokensRequestDto.getUsername());
+        company.setTokens(company.getTokens() - userTokensRequestDto.getTokens());
+        companyService.updateTokens(company);
+        return ResponseEntity.ok(company.getTokens());
     }
 }
