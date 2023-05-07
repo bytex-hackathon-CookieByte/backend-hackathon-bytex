@@ -27,7 +27,7 @@ public class ChallengeController {
 
     final private ChallengeService challengeService;
     final private CompanyService companyService;
-    private QuestionService questionService;
+    private final QuestionService questionService;
 
 
     public ChallengeController(ChallengeService challengeService, CompanyService companyService, QuestionService questionService) {

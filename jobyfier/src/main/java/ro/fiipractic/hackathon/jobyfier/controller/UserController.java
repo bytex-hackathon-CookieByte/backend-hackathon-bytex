@@ -47,10 +47,6 @@ public class UserController {
         User user = userService.getUserByUsername(username);
         return userService.convertUserToDto(user);
     }
-    @GetMapping("/avatars")
-    public String getAvatarsByUserId(@RequestParam UUID userId){
-        return userService.getAvatarsByUserId(userId);
-    }
 
     @PostMapping("/experience")
     public ResponseEntity<String> addExperience(@Valid @RequestBody ExperienceRequestDto experienceRequestDto){
@@ -82,17 +78,17 @@ public class UserController {
         Challenge challenge = challengeService.getChallengeById(scoreRequestDto.getChallengeId());
         int scoreValue = scoreRequestDto.getScoreValue();
         scoreService.save(user,challenge,-1);
-        return ResponseEntity.ok("Score added successfully");
+        return ResponseEntity.ok("Challenge added successfully");
     }
 
-//    @PostMapping("/scores")
-//    public ResponseEntity<String> setScore(@RequestBody ScoreRequestDto scoreRequestDto){
-//        User user = userService.getById(scoreRequestDto.getUserId());
-//        Challenge challenge = challengeService.getChallengeById(scoreRequestDto.getChallengeId());
-//        int scoreValue = scoreRequestDto.getScoreValue();
-//        scoreService.updateScore(user,challenge,scoreValue);
-//        return ResponseEntity.ok("Score added successfully");
-//    }
+    @PutMapping("/scores")
+    public ResponseEntity<String> setScore(@RequestBody ScoreRequestDto scoreRequestDto){
+        User user = userService.getById(scoreRequestDto.getUserId());
+        Challenge challenge = challengeService.getChallengeById(scoreRequestDto.getChallengeId());
+        int scoreValue = scoreRequestDto.getScoreValue();
+        scoreService.updateScore(user,challenge,scoreValue);
+        return ResponseEntity.ok("Score added successfully");
+    }
     @GetMapping("/scores")
     public List<Score> getScoreByUser(@RequestParam UUID userId){
         return scoreService.getAllByUserId(userId);
