@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.fiipractic.hackathon.jobyfier.dto.request.*;
+import ro.fiipractic.hackathon.jobyfier.dto.response.ChallengeResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.ExperienceResponseDto;
 import ro.fiipractic.hackathon.jobyfier.dto.response.UserResponseDto;
 import ro.fiipractic.hackathon.jobyfier.model.*;
@@ -121,5 +122,12 @@ public class UserController {
         user.setTokens(user.getTokens() - userTokensRequestDto.getTokens());
         userService.updateTokens(user);
         return ResponseEntity.ok(user.getTokens());
+    }
+
+    @GetMapping("/challenges/accepted")
+    public List<ChallengeResponseDto> getChallenges(@RequestParam String username) {
+        User user = userService.getUserByUsername(username);
+        List<Challenge> challenges = challengeService.getActiveChallenges(user);
+        return challengeService.convertChallengeToDto(challenges);
     }
 }

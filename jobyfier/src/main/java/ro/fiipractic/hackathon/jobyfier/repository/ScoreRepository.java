@@ -20,4 +20,6 @@ public interface ScoreRepository extends JpaRepository<Score, UUID> {
     @Modifying
     @Query("UPDATE Score s SET s.scoreValue = :scoreValue WHERE s.user.id = :userId AND s.challenge.id = :challengeId")
     void updateScore(@Param("userId")UUID id, @Param("challengeId")UUID id1, @Param("scoreValue")int scoreValue);
+
+    List<Score> findAllByUserIdAndScoreValueLessThan(UUID id, int i);
 }

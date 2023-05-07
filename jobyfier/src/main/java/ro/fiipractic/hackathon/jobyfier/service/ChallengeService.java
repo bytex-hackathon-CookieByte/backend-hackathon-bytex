@@ -8,8 +8,11 @@ import ro.fiipractic.hackathon.jobyfier.dto.response.StageResponseDto;
 import ro.fiipractic.hackathon.jobyfier.exception.BadRequestException;
 import ro.fiipractic.hackathon.jobyfier.exception.NotFoundException;
 import ro.fiipractic.hackathon.jobyfier.model.Challenge;
+import ro.fiipractic.hackathon.jobyfier.model.Score;
 import ro.fiipractic.hackathon.jobyfier.model.Stage;
+import ro.fiipractic.hackathon.jobyfier.model.User;
 import ro.fiipractic.hackathon.jobyfier.repository.ChallengeRepository;
+import ro.fiipractic.hackathon.jobyfier.repository.ScoreRepository;
 import ro.fiipractic.hackathon.jobyfier.repository.StageRepository;
 
 import java.time.Instant;
@@ -21,11 +24,13 @@ public class ChallengeService {
 
     final private ChallengeRepository challengeRepository;
     final private StageRepository stageRepository;
+    final private ScoreRepository scoreRepository;
 
 
-    public ChallengeService(ChallengeRepository challengeRepository, StageRepository stageRepository) {
+    public ChallengeService(ChallengeRepository challengeRepository, StageRepository stageRepository, ScoreRepository scoreRepository) {
         this.challengeRepository = challengeRepository;
         this.stageRepository = stageRepository;
+        this.scoreRepository = scoreRepository;
     }
 
 
@@ -113,5 +118,13 @@ public class ChallengeService {
 
     public void deleteChallenge(Challenge challenge) {
         challengeRepository.delete(challenge);
+    }
+
+    public List<Challenge> getActiveChallenges(User user) {
+        List<Score> scores = scoreRepository.findAllByUserIdAndScoreValueLessThan(user.getId(), 0);
+
+       return scores.stream()
+                .map(Score::getChallenge)
+                .toList();
     }
 }
