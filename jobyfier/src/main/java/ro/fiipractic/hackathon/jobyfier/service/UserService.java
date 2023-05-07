@@ -138,4 +138,8 @@ public class UserService {
     public void updateTokens(User user) {
         userRepository.updateTokens(user.getId(), user.getTokens());
     }
+
+    public String getAvatarsByUserId(UUID id) {
+        return userRepository.getAvatarsByUserId(id);
+    }
 }

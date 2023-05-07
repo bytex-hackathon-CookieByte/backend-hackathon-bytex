@@ -14,4 +14,5 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Modifying
     @Query("UPDATE User u SET u.tokens = :tokens WHERE u.id = :userId")
     void updateTokens(@Param("userId")UUID id, @Param("tokens")int tokens);
+
 }
